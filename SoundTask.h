@@ -6,8 +6,11 @@
 enum class SoundType : byte
 {
     None,
+    
+    StartClick,
     ShortClick,
     LongClick,
+    
     Finish,
     Park,
     VelocityStep,

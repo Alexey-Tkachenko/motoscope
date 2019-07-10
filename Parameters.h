@@ -12,4 +12,8 @@ namespace Parameters
 
     constexpr int      LedBrightness = 400;
     constexpr bool     LedBrightnessDebug = true;
+
+    constexpr unsigned ClickGap = 300;
+    constexpr unsigned ClickShort = 1000;
+    constexpr unsigned ClickLong = 2000;
 }

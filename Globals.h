@@ -10,4 +10,6 @@ namespace Globals
     extern WaitHandles::AutoResetEvent SwitchFinishClose;
     extern WaitHandles::AutoResetEvent SwitchFinishOpen;
 
+    extern WaitHandles::AutoResetEvent ClickShort;
+    extern WaitHandles::AutoResetEvent ClickLong;
 }

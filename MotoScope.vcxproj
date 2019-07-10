@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assert.h" />
+    <ClInclude Include="ButtonTask.h" />
     <ClInclude Include="ConditionWrapper.h" />
     <ClInclude Include="Critical.h" />
     <ClInclude Include="ExpressTask.h" />
@@ -94,7 +95,7 @@
     <ClInclude Include="Median.h" />
     <ClInclude Include="Optimize.h" />
     <ClInclude Include="Parameters.h" />
-    <ClInclude Include="PeriodicTask.h" />
+    <ClInclude Include="WorkerTask.h" />
     <ClInclude Include="PeriodicTimer.h" />
     <ClInclude Include="Pins.h" />
     <ClInclude Include="PlacementNew.h" />
@@ -113,9 +114,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="abort.cpp" />
+    <ClCompile Include="ButtonTask.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="LedTask.cpp" />
-    <ClCompile Include="PeriodicTask.cpp" />
+    <ClCompile Include="WorkerTask.cpp" />
     <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="SoundTask.cpp" />
     <ClCompile Include="SpeedCorrectionTask.cpp" />

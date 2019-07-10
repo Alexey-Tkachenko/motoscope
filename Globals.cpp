@@ -7,4 +7,7 @@ namespace Globals
     WaitHandles::AutoResetEvent SwitchStartOpen;
     WaitHandles::AutoResetEvent SwitchFinishClose;
     WaitHandles::AutoResetEvent SwitchFinishOpen;
+
+    WaitHandles::AutoResetEvent ClickShort;
+    WaitHandles::AutoResetEvent ClickLong;
 }

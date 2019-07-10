@@ -4,6 +4,7 @@
 #include "Critical.h"
 #include "Globals.h"
 #include "Pins.h"
+#include "Parameters.h"
 
 static WaitHandles::ValueHolder<SoundType> latch;
 
@@ -23,14 +24,19 @@ for (;;)
     switch (r)
     {
     case SoundType::None:
+        noTone((uint8_t)Pins::Indication::Buzzer);
         continue;
+    case SoundType::StartClick:
+        frequency = 900;
+        duration = Parameters::ClickGap;
+        break;
     case SoundType::ShortClick:
         frequency = 800;
-        duration = 200;
+        duration = Parameters::ClickShort;
         break;
     case SoundType::LongClick:
         frequency = 700;
-        duration = 500;
+        duration = Parameters::ClickLong;
         break;
     case SoundType::Finish:
         frequency = 1000;

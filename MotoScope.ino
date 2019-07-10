@@ -8,11 +8,13 @@
 #include "LedTask.h"
 #include "SpeedCorrectionTask.h"
 #include "SwitchesService.h"
+#include "ButtonTask.h"
+
+#include "WorkerTask.h"
 
 void setup() __ATTR_NORETURN__;
 
 static Scheduler scheduler;
-#include "PeriodicTask.h"
 
 void setup()
 {
@@ -21,9 +23,11 @@ void setup()
     RegisterSoundTask(scheduler);
     RegisterLedTask(scheduler);
     RegisterSpeedCorrectionTask(scheduler);
-    RegisterPeriodicTask(scheduler);
-
     RegisterSwitchesService();
+    RegisterButtonTask(scheduler);
+
+    RegisterWorkerTask(scheduler);
+
     //LedSetValue(42);
     //PlaySound(SoundType::VelocityStep);
 

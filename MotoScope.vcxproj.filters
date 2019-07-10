@@ -91,13 +91,16 @@
     <ClInclude Include="PeriodicTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PeriodicTask.h">
-      <Filter>Tasks</Filter>
-    </ClInclude>
     <ClInclude Include="SpeedCorrectionTask.h">
       <Filter>Tasks</Filter>
     </ClInclude>
     <ClInclude Include="SwitchesService.h">
+      <Filter>Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonTask.h">
+      <Filter>Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkerTask.h">
       <Filter>Tasks</Filter>
     </ClInclude>
   </ItemGroup>
@@ -126,13 +129,16 @@
     <ClCompile Include="LedTask.cpp">
       <Filter>Tasks</Filter>
     </ClCompile>
-    <ClCompile Include="PeriodicTask.cpp">
-      <Filter>Tasks</Filter>
-    </ClCompile>
     <ClCompile Include="SpeedCorrectionTask.cpp">
       <Filter>Tasks</Filter>
     </ClCompile>
     <ClCompile Include="SwitchesService.cpp">
+      <Filter>Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonTask.cpp">
+      <Filter>Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkerTask.cpp">
       <Filter>Tasks</Filter>
     </ClCompile>
   </ItemGroup>
