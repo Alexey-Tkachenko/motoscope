@@ -13,6 +13,10 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Tasks">
+      <UniqueIdentifier>{9f64f4e1-1055-4c9a-92f0-39e3a6c3b054}</UniqueIdentifier>
+      <Extensions>*Task</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="MotoScope.ino" />
@@ -75,22 +79,61 @@
     <ClInclude Include="WaitObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SoundTask.h">
+      <Filter>Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LedTask.h">
+      <Filter>Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="PeriodicTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PeriodicTask.h">
+      <Filter>Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeedCorrectionTask.h">
+      <Filter>Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchesService.h">
+      <Filter>Tasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="abort.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scheduler.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TaskBase.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TaskQueue.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WaitHandles.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundTask.cpp">
+      <Filter>Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="abort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Globals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LedTask.cpp">
+      <Filter>Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="PeriodicTask.cpp">
+      <Filter>Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="SpeedCorrectionTask.cpp">
+      <Filter>Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="SwitchesService.cpp">
+      <Filter>Tasks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

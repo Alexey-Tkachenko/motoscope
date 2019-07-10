@@ -1,54 +1,40 @@
 #pragma once
 #include <Arduino.h>
+#include <avr/pgmspace.h>
 
 namespace Pins
 {
     namespace Diods
     {
-        enum class Anodes
-        {
-            A1 = 6,
-            A2 = 7,
-            A3 = 8,
-            A4 = 9,
-            A5 = 10,
-            A6 = 11,
-            A7 = 12
-        };
-
-        enum class Cathods
-        {
-            C0 = A0,
-            C1 = A1,
-            C2 = A2,
-        };
+        const byte Anodes[] = { 6, 7, 8, 9, 10, 11, 12 };
+        const byte Cathods[] = { A0, A1, A2 };
     };
 
-    enum class Stepper
+    enum class Stepper : uint8_t
     {
         Velocity = A4,
         Direction = A3,
         Pulse = 13,
     };
 
-    enum class Control
+    enum class Control : uint8_t
     {
-        VelocotyCorrection = A4,
+        VelocityCorrection = A4,
         Button = 4,
     };
 
-    enum class Indication
+    enum class Indication : uint8_t
     {
         Buzzer = 5,
     };
 
-    enum class SwitchLimits
+    enum class SwitchLimits : uint8_t
     {
         Start = 2,
         Finish = 3,
     };
 
-    enum class Telemetry
+    enum class Telemetry : uint8_t
     {
         Voltage = A5,
     };

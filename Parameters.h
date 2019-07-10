@@ -2,11 +2,14 @@
 
 namespace Parameters
 {
-    const unsigned MaxVelocityDelay = 10;
-    const unsigned LowVelocityDelay = 1000;
-    const unsigned ExtraSpeedOnStartSwitch = 256;
-    const unsigned AverageSpeedDelay = 100;
-    const float    ControlSpeed = 0.01;
-    const unsigned SpeedIndicationTimeout = 30;
-    const unsigned SpeedControlSensitivity = 3;
+    constexpr unsigned MaxVelocityDelay = 10;
+    constexpr unsigned LowVelocityDelay = 1000;
+    constexpr unsigned ExtraSpeedOnStartSwitch = 256;
+    constexpr unsigned AverageSpeedDelay = 100;
+    constexpr float    ControlSpeed = 0.01;
+    constexpr unsigned SpeedIndicationTimeout = 5;
+    constexpr int      SpeedControlSensitivity = 2;
+
+    constexpr int      LedBrightness = 400;
+    constexpr bool     LedBrightnessDebug = true;
 }
