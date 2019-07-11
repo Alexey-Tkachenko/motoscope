@@ -103,6 +103,9 @@
     <ClInclude Include="WorkerTask.h">
       <Filter>Tasks</Filter>
     </ClInclude>
+    <ClInclude Include="PowerMonitorTask.h">
+      <Filter>Tasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scheduler.cpp">
@@ -139,6 +142,9 @@
       <Filter>Tasks</Filter>
     </ClCompile>
     <ClCompile Include="WorkerTask.cpp">
+      <Filter>Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerMonitorTask.cpp">
       <Filter>Tasks</Filter>
     </ClCompile>
   </ItemGroup>

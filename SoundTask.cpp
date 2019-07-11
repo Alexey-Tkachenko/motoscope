@@ -50,6 +50,14 @@ for (;;)
         frequency = 200;
         duration = 50;
         break;
+    case SoundType::PowerAlarm1:
+        frequency = 2500;
+        duration = 500;
+        break;
+    case SoundType::PowerAlarm2:
+        frequency = 3000;
+        duration = 500;
+        break;
     default:
         continue;
     }

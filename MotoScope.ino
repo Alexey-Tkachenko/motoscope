@@ -9,6 +9,7 @@
 #include "SpeedCorrectionTask.h"
 #include "SwitchesService.h"
 #include "ButtonTask.h"
+#include "PowerMonitorTask.h"
 
 #include "WorkerTask.h"
 
@@ -25,6 +26,7 @@ void setup()
     RegisterSpeedCorrectionTask(scheduler);
     RegisterSwitchesService();
     RegisterButtonTask(scheduler);
+    //RegisterPowerMonitorTask(scheduler);
 
     RegisterWorkerTask(scheduler);
 

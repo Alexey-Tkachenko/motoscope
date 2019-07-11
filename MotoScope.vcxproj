@@ -95,6 +95,7 @@
     <ClInclude Include="Median.h" />
     <ClInclude Include="Optimize.h" />
     <ClInclude Include="Parameters.h" />
+    <ClInclude Include="PowerMonitorTask.h" />
     <ClInclude Include="WorkerTask.h" />
     <ClInclude Include="PeriodicTimer.h" />
     <ClInclude Include="Pins.h" />
@@ -117,6 +118,7 @@
     <ClCompile Include="ButtonTask.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="LedTask.cpp" />
+    <ClCompile Include="PowerMonitorTask.cpp" />
     <ClCompile Include="WorkerTask.cpp" />
     <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="SoundTask.cpp" />

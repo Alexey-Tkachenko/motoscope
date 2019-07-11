@@ -14,6 +14,9 @@ enum class SoundType : byte
     Finish,
     Park,
     VelocityStep,
+
+    PowerAlarm1,
+    PowerAlarm2,
 };
 
 
