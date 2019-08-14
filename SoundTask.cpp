@@ -2,11 +2,21 @@
 #include "ExpressTask.h"
 #include "StaticAllocActivator.h"
 #include "Critical.h"
-#include "Globals.h"
 #include "Pins.h"
 #include "Parameters.h"
+#include "Trace.h"
 
 static WaitHandles::ValueHolder<SoundType> latch;
+
+volatile unsigned long shutdownTime;
+
+static bool CheckTime()
+{
+    return millis() >= shutdownTime;
+}
+
+static WaitHandles::Condition shutdown(CheckTime);
+
 
 TASK_BEGIN(SoundPlayer, { SoundType r; })
 
@@ -18,13 +28,15 @@ for (;;)
 		r = latch.Get();
 	}
 
+    Trace(F("Sound\tPlay "), (int)r);
+
     unsigned frequency;
     unsigned duration;
 
     switch (r)
     {
     case SoundType::None:
-        noTone((uint8_t)Pins::Indication::Buzzer);
+        shutdownTime = 0;
         continue;
     case SoundType::StartClick:
         frequency = 900;
@@ -62,18 +74,31 @@ for (;;)
         continue;
     }
 
-	tone((uint8_t)Pins::Indication::Buzzer, frequency, duration);
+    Trace(F("Sound\tSetBuzzer"));
+	tone((uint8_t)Pins::Indication::Buzzer, frequency);
+    shutdownTime = millis() + duration;
     TASK_SLEEP(100);
 }
 
 TASK_END;
 
+TASK_BEGIN(SoundShutdownTask, {})
+for(;;)
+{
+    TASK_WAIT_FOR(&shutdown);
+    shutdownTime = -1;
+    Trace(F("Sound\tShutdown"));
+    noTone((uint8_t)Pins::Indication::Buzzer);
+}
+TASK_END
+
 void PlaySound(SoundType type)
 {
+    Trace(F("Sound\tLatch "), (int)type);
     latch.Set(type);
 }
 
 bool RegisterSoundTask(Scheduler & scheduler)
 {
-	return scheduler.Register(Instance<SoundPlayer>());
+	return scheduler.Register(Instance<SoundPlayer>()) && scheduler.Register(Instance<SoundShutdownTask>());
 }

@@ -6,13 +6,14 @@
 #include "Parameters.h"
 #include "Pins.h"
 #include "ExpressTask.h"
+#include "Trace.h"
 
 static unsigned long ledOffTimeout;
 static bool ledDisabled;
 
 byte ledValue[3];
 
-TASK_BEGIN(LedTask, {})
+TASK_BEGIN(LedTask, {int a; int c;})
 
 this->Initialize();
 
@@ -126,6 +127,8 @@ void RegisterLedTask(Scheduler & scheduler)
 
 void LedSetValue(int value)
 {
+    Trace(F("Led\tSetValue "), value);
+
     ledOffTimeout = millis() + 1000 * Parameters::SpeedIndicationTimeout;
     ledDisabled = false;
 

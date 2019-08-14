@@ -2,28 +2,39 @@
 #include "StaticAllocActivator.h"
 #include "ExpressTask.h"
 #include "Pins.h"
-#include "Parameters.h"
 #include "Globals.h"
+#include "LedTask.h"
+#include "SoundTask.h"
+#include "Trace.h"
+#include "Kalman.h"
 
-TASK_BEGIN(SpeedCorrectionTask, { int current; int saved; })
+static Kalman<int> filter(0.075);
+
+TASK_BEGIN(SpeedCorrectionTask, { int current; int saved; unsigned long changed; unsigned long now; })
 
 saved = ReadValue();
 TASK_SLEEP(1000);
 
 Globals::CorrectionValue.Set(saved);
+changed = millis();
 
 for (;;)
 {
-    current = ReadValue();
+    current = filter(ReadValue());
+    now = millis();
 
-    if (current >= saved + Parameters::SpeedControlSensitivity
-        ||
-        current <= saved - Parameters::SpeedControlSensitivity
-        )
+    if (Difference(saved, current) > 1 || now - changed > 200)
     {
-        Globals::CorrectionValue.Set(saved = current);
+        if (saved != current)
+        {
+            Globals::CorrectionValue.Set(saved = current);
+            Trace(F("Speed\tValue "), current);
+            LedSetValue(current);
+            PlaySound(SoundType::VelocityStep);
+        }
+        changed = now;
     }
-
+    
     TASK_SLEEP(5);
 }
 
@@ -38,6 +49,15 @@ int ReadValue() const
     
     return value;
 }
+
+template<class T>
+T Difference(T a, T b)
+{
+    T d = a - b;
+    if (d < 0) d = -d;
+    return d;
+}
+
 TASK_CLASS_END
 
 void RegisterSpeedCorrectionTask(Scheduler& scheduler)

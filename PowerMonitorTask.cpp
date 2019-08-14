@@ -6,13 +6,14 @@
 #include "Pins.h"
 #include "SoundTask.h"
 #include "LedTask.h"
+#include "Trace.h"
 
 TASK_BEGIN(PowerMonitorTask, { int value; int power; })
 
 for (;;)
 {
     value = analogRead((uint8_t)Pins::Telemetry::Voltage);
-    Serial.println(value);
+    Trace(F("Power\tValue "), value);
 
     power = (int)(Parameters::PowerScale * 10 * value + 10 * Parameters::PowerOffset);
 
@@ -23,6 +24,7 @@ for (;;)
     if (value < Parameters::PowerLowLimit)
     {
         LedSetValue(power);
+        Trace(F("Power\tLow"));
 
         PlaySound(SoundType::PowerAlarm1);
         TASK_SLEEP(500);

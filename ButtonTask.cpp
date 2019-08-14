@@ -5,6 +5,7 @@
 #include "SoundTask.h"
 #include "Globals.h"
 #include "Parameters.h"
+#include "Trace.h"
 
 static constexpr uint8_t _button = (uint8_t)Pins::Control::Button;
 
@@ -33,6 +34,7 @@ released:
     {
         if (ButtonPressed())
         {
+            Trace(F("Button\tPressed"));
             start = millis();
             break;
         }
@@ -48,6 +50,8 @@ released:
         TASK_YIELD();
     }
 
+    Trace(F("Button\tShortClick"));
+
     PlaySound(SoundType::ShortClick);
     while (start + Parameters::ClickShort > millis())
     {
@@ -57,12 +61,15 @@ released:
             if (::wait.shortClick)
             {
                 PlaySound(SoundType::None);
+                Trace(F("Button\tShortClick/Commited"));
                 Globals::ClickShort.Set();
                 goto released;
             }
         }
         TASK_YIELD();
     }
+
+    Trace(F("Button\tLongClick"));
 
     PlaySound(SoundType::LongClick);
     while (start + Parameters::ClickLong > millis())
@@ -73,6 +80,7 @@ released:
             if (::wait.longClick)
             {
                 PlaySound(SoundType::None);
+                Trace(F("Button\tLongClick/Commited"));
                 Globals::ClickLong.Set();
             }
             goto released;
@@ -81,22 +89,24 @@ released:
     }
 
 waitRelease:
+    Trace(F("Button\tWaitRelease"));
+
     PlaySound(SoundType::None);
     while (ButtonPressed())
     {
         TASK_YIELD();
     }
+    Trace(F("Button\tReleased"));
 
 }
 TASK_BODY_END
 
-bool ButtonPressed() const
+static bool ButtonPressed()
 {
-    bool value = digitalRead(_button);
-    return value;
+    return !!digitalRead(_button);
 }
 
-void Initialize() const
+static void Initialize()
 {
     pinMode(_button, INPUT);
     digitalWrite(_button, 1);

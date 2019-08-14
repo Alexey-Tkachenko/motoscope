@@ -11,13 +11,14 @@ TASK_BEGIN(WorkerTask, { int value; })
 
 
 WaitClick(true, true);
+pinMode(13, OUTPUT);
 
 for (;;)
 {
-    TASK_WAIT_VALUE(&Globals::CorrectionValue, value);
-    LedSetValue(value);
-    PlaySound(SoundType::VelocityStep);
-
+    digitalWrite(13, 1);
+    TASK_SLEEP(1);
+    digitalWrite(13, 0);
+    TASK_SLEEP(1);
 }
 
 TASK_END
