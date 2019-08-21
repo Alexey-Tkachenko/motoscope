@@ -112,6 +112,12 @@
     <ClInclude Include="Average.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Kalman.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StepperTask.h">
+      <Filter>Tasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scheduler.cpp">
@@ -151,6 +157,9 @@
       <Filter>Tasks</Filter>
     </ClCompile>
     <ClCompile Include="SwitchesTask.cpp">
+      <Filter>Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="StepperTask.cpp">
       <Filter>Tasks</Filter>
     </ClCompile>
   </ItemGroup>

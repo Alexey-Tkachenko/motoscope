@@ -37,6 +37,14 @@ public:
         if (count == 0) return T{};
         return T{sum / count};
     }
+
+    void fill(T saved)
+    {
+        for (IDX i = 0; i < N; ++i)
+        {
+            values[i] = saved;
+        }
+    }
 };
 
 template<typename T, typename IDX>
@@ -52,6 +60,11 @@ public:
     T get() const
     {
         return current;
+    }
+
+    void fill(T saved)
+    {
+        current = saved;
     }
 };
 

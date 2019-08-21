@@ -7,28 +7,41 @@
 #include "SoundTask.h"
 #include "Trace.h"
 #include "Kalman.h"
+#include "Average.h"
+#include "Median.h"
+#include "StepperTask.h"
+#include "Parameters.h"
 
-static Kalman<int> filter(0.075);
+static Kalman<int> filter(0.02);
+static Average<int, 8, byte> filterA;
+static Median<int, 7, byte> filterB;
 
 TASK_BEGIN(SpeedCorrectionTask, { int current; int saved; unsigned long changed; unsigned long now; })
 
 saved = ReadValue();
+filterA.fill(saved);
+filterB.fill(saved);
+filter.fill(saved);
 TASK_SLEEP(1000);
+LedSetValue(saved);
 
-Globals::CorrectionValue.Set(saved);
+StepperSetPeriod(Parameters::AverageSpeedDelay + (saved - 500) * Parameters::ControlSpeed);
 changed = millis();
 
 for (;;)
 {
-    current = filter(ReadValue());
+    filterA.write(ReadValue());
+    filterB.write(filterA.get());
+    current = filter(filterB.get());
     now = millis();
 
     if (Difference(saved, current) > 1 || now - changed > 200)
     {
         if (saved != current)
         {
-            Globals::CorrectionValue.Set(saved = current);
-            Trace(F("Speed\tValue "), current);
+            saved = current;
+            StepperSetPeriod(Parameters::AverageSpeedDelay + (saved - 500) * Parameters::ControlSpeed);
+            Trace(F("Speed"), F("Value"), current);
             LedSetValue(current);
             PlaySound(SoundType::VelocityStep);
         }

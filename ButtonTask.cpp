@@ -9,6 +9,11 @@
 
 static constexpr uint8_t _button = (uint8_t)Pins::Control::Button;
 
+static const __FlashStringHelper* cat()
+{
+    return F("Button");
+}
+
 static union
 {
     uint8_t any;
@@ -34,7 +39,7 @@ released:
     {
         if (ButtonPressed())
         {
-            Trace(F("Button\tPressed"));
+            Trace(cat(),F("Pressed"));
             start = millis();
             break;
         }
@@ -50,7 +55,7 @@ released:
         TASK_YIELD();
     }
 
-    Trace(F("Button\tShortClick"));
+    Trace(cat(), F("ShortClick"));
 
     PlaySound(SoundType::ShortClick);
     while (start + Parameters::ClickShort > millis())
@@ -61,15 +66,15 @@ released:
             if (::wait.shortClick)
             {
                 PlaySound(SoundType::None);
-                Trace(F("Button\tShortClick/Commited"));
-                Globals::ClickShort.Set();
+                Trace(cat(), F("ShortClick/Commited"));
+                Globals::ClickShort = true;
                 goto released;
             }
         }
         TASK_YIELD();
     }
 
-    Trace(F("Button\tLongClick"));
+    Trace(cat(), F("LongClick"));
 
     PlaySound(SoundType::LongClick);
     while (start + Parameters::ClickLong > millis())
@@ -80,8 +85,8 @@ released:
             if (::wait.longClick)
             {
                 PlaySound(SoundType::None);
-                Trace(F("Button\tLongClick/Commited"));
-                Globals::ClickLong.Set();
+                Trace(cat(), F("LongClick/Commited"));
+                Globals::ClickLong = true;
             }
             goto released;
         }
@@ -89,14 +94,14 @@ released:
     }
 
 waitRelease:
-    Trace(F("Button\tWaitRelease"));
+    Trace(cat(), F("WaitRelease"));
 
     PlaySound(SoundType::None);
     while (ButtonPressed())
     {
         TASK_YIELD();
     }
-    Trace(F("Button\tReleased"));
+    Trace(cat(),F("Released"));
 
 }
 TASK_BODY_END
@@ -129,7 +134,16 @@ void WaitClick(bool _long, bool _short)
 void StopWaitClick()
 {
     ::wait.any = 0;
-    Globals::ClickLong.Reset();
-    Globals::ClickShort.Reset();
+    Globals::ClickLong = false;
+    Globals::ClickShort = false;
 }
 
+bool CheckReset(bool& flag)
+{
+    if (flag)
+    {
+        flag = false;
+        return true;
+    }
+    return false;
+}

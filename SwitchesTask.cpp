@@ -8,7 +8,14 @@
 
 #include <Arduino.h>
 
-TASK_BEGIN(SwitchTask, {bool cur; bool prev;})
+static const __FlashStringHelper* cat()
+{
+    return F("Switch");
+}
+
+TASK_BEGIN(SwitchTask, {bool cur; bool prev; bool initialized = false;})
+
+TASK_YIELD_WHILE(initialized == false);
 
 pinMode(pin, INPUT);
 digitalWrite(pin, 1);
@@ -21,23 +28,23 @@ for(;;)
 
     if (cur != prev)
     {
-        Trace(F("Switch\tFirst"));
+        Trace(cat(), F("First"));
         TASK_SLEEP(50);
         cur = ReadValue();
         if (cur != prev)
         {
-            Trace(F("Switch\tSecond"));
+            Trace(cat(), F("Second"));
             prev = cur;
             if (cur)
             {
-                Trace(F("Switch\tClose "), pin);
-                close->Set();
+                Trace(cat(), F("Close"), pin);
+                *close = true;
                 PlaySound(sound);
             }
             else
             {
-                Trace(F("Switch\tOpen "), pin);
-                open->Set();
+                Trace(cat(), F("Open"), pin);
+                *open = true;
             }
         }
     }
@@ -55,19 +62,19 @@ bool ReadValue() const
 }
 
 byte pin;
-WaitHandles::AutoResetEvent *close;
-WaitHandles::AutoResetEvent *open;
+bool *close;
+bool *open;
 SoundType sound;
 
 public:
-SwitchTask& Configure(byte pin, WaitHandles::AutoResetEvent& close, WaitHandles::AutoResetEvent& open, SoundType sound)
+SwitchTask& Configure(byte pin, bool& close, bool& open, SoundType sound)
 {
     this->pin = pin;
     this->close = &close;
     this->open = &open;
     this->sound = sound;
 
-    
+    this->initialized = true;
 
     return *this;
 }

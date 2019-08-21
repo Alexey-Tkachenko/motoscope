@@ -17,6 +17,11 @@ static bool CheckTime()
 
 static WaitHandles::Condition shutdown(CheckTime);
 
+static const __FlashStringHelper* cat()
+{
+    return F("Sound");
+}
+
 
 TASK_BEGIN(SoundPlayer, { SoundType r; })
 
@@ -28,7 +33,7 @@ for (;;)
 		r = latch.Get();
 	}
 
-    Trace(F("Sound\tPlay "), (int)r);
+    Trace(cat(), F("Play"), (int)r);
 
     unsigned frequency;
     unsigned duration;
@@ -74,27 +79,30 @@ for (;;)
         continue;
     }
 
-    Trace(F("Sound\tSetBuzzer"));
-	tone((uint8_t)Pins::Indication::Buzzer, frequency);
+    Trace(cat(), F("SetBuzzer"));
+    if (Parameters::UseSound)
+    {
+	    tone((uint8_t)Pins::Indication::Buzzer, frequency);
+    }
     shutdownTime = millis() + duration;
     TASK_SLEEP(100);
 }
 
-TASK_END;
+TASK_END
 
 TASK_BEGIN(SoundShutdownTask, {})
 for(;;)
 {
     TASK_WAIT_FOR(&shutdown);
     shutdownTime = -1;
-    Trace(F("Sound\tShutdown"));
+    Trace(cat(), F("Shutdown"));
     noTone((uint8_t)Pins::Indication::Buzzer);
 }
 TASK_END
 
 void PlaySound(SoundType type)
 {
-    Trace(F("Sound\tLatch "), (int)type);
+    Trace(cat(), F("Latch "), (int)type);
     latch.Set(type);
 }
 

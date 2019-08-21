@@ -15,6 +15,7 @@ namespace Pins
         Velocity = A4,
         Direction = A3,
         Pulse = 13,
+        Enable = 1,
     };
 
     enum class Control : uint8_t

@@ -30,4 +30,9 @@ public:
 
         return (T)(0.5 + s);
     }
+
+    void fill(int saved)
+    {
+        s = saved;
+    }
 };

@@ -1,13 +1,12 @@
 #include "Globals.h"
 namespace Globals
 {
-    WaitHandles::ValueHolder<int> CorrectionValue;
 
-    WaitHandles::AutoResetEvent SwitchStartClose;
-    WaitHandles::AutoResetEvent SwitchStartOpen;
-    WaitHandles::AutoResetEvent SwitchFinishClose;
-    WaitHandles::AutoResetEvent SwitchFinishOpen;
+    bool SwitchStartClose;
+    bool SwitchStartOpen;
+    bool SwitchFinishClose;
+    bool SwitchFinishOpen;
 
-    WaitHandles::AutoResetEvent ClickShort;
-    WaitHandles::AutoResetEvent ClickLong;
+    bool ClickShort;
+    bool ClickLong;
 }

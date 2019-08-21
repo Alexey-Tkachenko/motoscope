@@ -13,6 +13,8 @@ static bool ledDisabled;
 
 byte ledValue[3];
 
+static bool lowPower;
+
 TASK_BEGIN(LedTask, {int a; int c;})
 
 this->Initialize();
@@ -86,9 +88,17 @@ void DrawDigit(byte digit, byte index)
     if (digit > 9) return;
     if (index > 2) return;
 
-    static const byte digitMask[10] PROGMEM = { 0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F };
+    static const byte digitMask[10 + 3] PROGMEM = { 0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x73, 0x38, 0x5C };
+    byte mask;
 
-    byte mask = ledDisabled ? 0 : pgm_read_byte(digit + digitMask);
+    if (lowPower)
+    {
+        mask = pgm_read_byte(digitMask + 10 + index);
+    }
+    else
+    {
+        mask = ledDisabled ? 0 : pgm_read_byte(digitMask + digit);
+    }
 
     for (byte i = 0; i < 7; ++i)
     {
@@ -127,7 +137,7 @@ void RegisterLedTask(Scheduler & scheduler)
 
 void LedSetValue(int value)
 {
-    Trace(F("Led\tSetValue "), value);
+    Trace(F("Led"),F("SetValue"), value);
 
     ledOffTimeout = millis() + 1000 * Parameters::SpeedIndicationTimeout;
     ledDisabled = false;
@@ -137,5 +147,15 @@ void LedSetValue(int value)
     ledValue[1] = value % 10;
     value /= 10;
     ledValue[0] = value % 10;
+}
+
+void LedLowPowerStart()
+{
+    lowPower = true;
+}
+
+void LedLowPowerEnd()
+{
+    lowPower = false;
 }
 

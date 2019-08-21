@@ -39,12 +39,20 @@ public:
 		}
 		return tmp[N >> 1];
 	}
+
+    void fill(int saved)
+	{
+        for (IDX i = 0; i < N; ++i)
+        {
+            values[i] = saved;
+        }
+	}
 };
 
 template<typename T, typename IDX>
 class Median<T, 1, IDX>
 {
-	int val;
+	T val;
 public:
 	Median() : val() {}
 	void write(T val)
@@ -55,6 +63,11 @@ public:
 	T get() const
 	{
 		return val;
+	}
+
+    void fill(T saved)
+	{
+	    val = saved;
 	}
 };
 
