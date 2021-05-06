@@ -25,7 +25,7 @@ filter.fill(saved);
 TASK_SLEEP(1000);
 LedSetValue(saved);
 
-StepperSetPeriod(Parameters::AverageSpeedDelay + (saved - 500) * Parameters::ControlSpeed);
+StepperSetPeriod(Parameters::AverageSpeedDelay - (saved - 250) * Parameters::ControlSpeed);
 changed = millis();
 
 for (;;)
@@ -40,7 +40,7 @@ for (;;)
         if (saved != current)
         {
             saved = current;
-            StepperSetPeriod(Parameters::AverageSpeedDelay + (saved - 500) * Parameters::ControlSpeed);
+            StepperSetPeriod(Parameters::AverageSpeedDelay - (saved - 250) * Parameters::ControlSpeed);
             Trace(F("Speed"), F("Value"), current);
             LedSetValue(current);
             PlaySound(SoundType::VelocityStep);
@@ -56,9 +56,9 @@ int ReadValue() const
 {
     constexpr int bound = (1023 - 999) / 2;
 
-    int value = analogRead((byte)Pins::Control::VelocityCorrection) - bound;
+    int value = (analogRead((byte)Pins::Control::VelocityCorrection) - bound) / 2;
     if (value < 0) value = 0;
-    if (value > 999) value = 999;
+    if (value > 500) value = 500;
     
     return value;
 }

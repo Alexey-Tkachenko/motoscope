@@ -118,6 +118,9 @@
     <ClInclude Include="StepperTask.h">
       <Filter>Tasks</Filter>
     </ClInclude>
+    <ClInclude Include="__vm\.Мотоскоп.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scheduler.cpp">

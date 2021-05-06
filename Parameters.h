@@ -2,12 +2,12 @@
 
 namespace Parameters
 {
-    constexpr float    AverageSpeedDelay = 0.017;
-    constexpr float    ControlSpeed = 0.00001;
+    constexpr float    AverageSpeedDelay = 0.130; /* seconds per step */
+    constexpr float    ControlSpeed = 0.035 /*range*/ * 2 / 500 /*steps*/;
     constexpr unsigned SpeedIndicationTimeout = 5;
 
     constexpr int      LedBrightness = 10;
-    constexpr bool     LedBrightnessDebug = false;
+    constexpr bool     LedBrightnessDebug = true;
 
     constexpr bool     UseSound = true;
 
